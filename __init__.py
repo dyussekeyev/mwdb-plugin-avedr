@@ -17,7 +17,6 @@ config_api_key = ""
 
 SCANNER_ENDPOINTS = [
     {"name": "ClamAV", "url": "http://127.0.0.1:8000/scan"},
-    {"name": "KVRT", "url": "http://127.0.0.1:8001/scan"}
 ]
 
 def AvedrProcessFile(hash_value):
@@ -35,7 +34,7 @@ def AvedrProcessFile(hash_value):
             response = requests.post(endpoint["url"], files={'file': (hash_value, f, 'application/octet-stream')})
             if response.status_code == 200:
                 result = response.json()
-                comment += f"{endpoint['name']} result: {result['result']} (Category: {result['category']})\n"
+                comment += f"{endpoint['name']} result: {result['result']} (Version: {result['version']})\n"
             else:
                 comment += f"{endpoint['name']} error: {response.status_code}\n"
 
