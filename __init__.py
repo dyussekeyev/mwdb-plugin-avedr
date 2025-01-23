@@ -21,10 +21,10 @@ SCANNER_ENDPOINTS = [
 
 def AvedrAddTag(file, av_name: str, av_result: str):
     for tag in file.tags:
-        if tag.startswith(f"{av_name}:"):
+        if tag.startswith(f"{av_name.lower()}:"):
             file.remove_tag(tag)
 
-    file.add_tag(f"{av_name}:{av_result}")
+    file.add_tag(f"{av_name.lower()}:{av_result.lower()}")
 
 def AvedrProcessFile(hash_value):
     mwdb = MWDB(api_url=config_api_url, api_key=config_api_key)
