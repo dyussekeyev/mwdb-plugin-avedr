@@ -19,7 +19,7 @@ SCANNER_ENDPOINTS = [
     {"name": "ClamAV", "url": "http://127.0.0.1:8000/scan"},
 ]
 
-def AvedrAddTag(file: File, av_name: str, av_result: str):
+def AvedrAddTag(file, av_name: str, av_result: str):
     for tag in file.tags:
         if tag.startswith(f"{av_name}:"):
             file.remove_tag(tag)
