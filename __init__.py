@@ -21,7 +21,7 @@ SCANNER_ENDPOINTS = [
 
 def AvedrAddTag(file, av_name: str, av_result: str):
     for tag in file.tags:
-        if tag.startswith(f"{av_name.lower()}:"):
+        if tag.lower().startswith(f"{av_name.lower()}:"):
             file.remove_tag(tag)
 
     file.add_tag(f"{av_name.lower()}:{av_result.lower()}")
