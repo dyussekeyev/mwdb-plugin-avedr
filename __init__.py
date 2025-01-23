@@ -19,6 +19,13 @@ SCANNER_ENDPOINTS = [
     {"name": "ClamAV", "url": "http://127.0.0.1:8000/scan"},
 ]
 
+def AvedrAddTag(file: File, av_name: str, av_result: str):
+    for tag in file.tags:
+        if tag.startswith(f"{av_name}:"):
+            file.remove_tag(tag)
+
+    file.add_tag(f"{av_name}:{av_result}")
+
 def AvedrProcessFile(hash_value):
     mwdb = MWDB(api_url=config_api_url, api_key=config_api_key)
     
@@ -35,6 +42,7 @@ def AvedrProcessFile(hash_value):
             if response.status_code == 200:
                 result = response.json()
                 comment += f"{endpoint['name']} result: {result['result']} (Version: {result['version']})\n"
+                AvedrAddTag(file, endpoint['name'], result['result'])
             else:
                 comment += f"{endpoint['name']} error: {response.status_code}\n"
 
